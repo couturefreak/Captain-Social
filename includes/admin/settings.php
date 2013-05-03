@@ -16,9 +16,10 @@ function ctsocial_options_each( $key ) {
 
 	 /* Define the array of defaults */ 
 	$defaults = array(
-		'facebook'     	=> 0,
-		'twitter'     	=> 0,
-		'pinterest'    	=> 0,
+		'facebook'  	   	=> 0,
+		'twitter'  	   	=> 0,
+		'pinterest'	    	=> 0,
+		'foursquare'   		=> 0,
 		'youtube'		=> 0,
 		'vimeo'			=> 0,
 		'flickr'		=> 0,
@@ -129,7 +130,15 @@ function ctsocial_initialize_theme_options() {
 		'ctsocial_all_options',	
 		'general_settings_section'			
 	);
-
+	
+	add_settings_field(	
+		'foursquare',						
+		__( 'Foursquare','ctsocial' ),						
+		'ctsocial_foursquare_callback',	
+		'ctsocial_all_options',	
+		'general_settings_section'			
+	);
+	
 	add_settings_field(	
 		'youtube',						
 		__( 'Youtube', 'ctsocial' ),
@@ -278,6 +287,22 @@ function ctsocial_pinterest_callback() {
 	echo '<input type="text" id="pinterest" name="ctsocial_all_options[pinterest]" value="' . $url . '" />';
 	
 } // end ctsocial_pinterest_callback
+
+// Pinterest Callback
+function ctsocial_foursquare_callback() {
+	
+	$options = get_option( 'ctsocial_all_options' );
+	$url = '';
+
+	if( isset( $options['foursquare'] ) ) {
+		$url = esc_url( $options['foursquare'] );
+	} // end if
+	
+	// Render the output
+	echo '<input type="text" id="foursquare" name="ctsocial_all_options[foursquare]" value="' . $url . '" />';
+	
+} // end ctsocial_foursquare_callback
+
 
 
 // Youtube Callback
